@@ -5,8 +5,7 @@ Primary indexes contain a full set of keys in a given keyspace.
 Primary indexes are optional and are only required for running ad hoc queries on a keyspace that is not supported by a secondary index.
 
 `CREATE PRIMARY INDEX` is by default a synchronous operation.
-The `CREATE PRIMARY INDEX` statement blocks until the operation finishes.
-Index building starts by creating a task that is queued for index build.
+Index building starts by creating a function that is queued for index build.
 After this phase, if you lose connectivity, the index build operation continues in the background.
 You can also run index creation asynchronously by using the `defer_build` clause.
 In the asynchronous mode, `CREATE PRIMARY INDEX` starts a task to create the primary index and returns as soon as the task is queued for execution.
@@ -22,7 +21,7 @@ Users executing the `CREATE PRIMARY INDEX` statement must have the _Query Manage
 For more details about user roles, see
 xref:learn:security/authorization-overview.adoc[Authorization].
 
-[IMPORTANT]
+[NOTE]
 ====
 Indexes cannot be built concurrently on a given keyspace unless the `defer_build` option in the `CREATE PRIMARY INDEX` statement is used in combination with the `BUILD INDEX` statement.
 The following error is reported if a second index creation operation is kicked off before the completion of the ongoing index creation.
